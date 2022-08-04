@@ -1,24 +1,23 @@
 clear;clc;
 dataset = 200;
 addpath 'E:\BCI\fieldtrip-master\connectivity'
-% for num = 1:dataset
-%     load(['E:\BCI\my_workplace\icoh\ft_test0\data200\data' num2str(num) '\samp.mat']);
-%     [clean_pro(num), ~] = my_qcspectra(samp,3,250,13);
-%     for noise_t = 1:41
-%         EEGOUT = pop_loadset(['noise' num2str(noise_t) '.set'],['E:\BCI\my_workplace\icoh\ft_test0\data200\data' num2str(num)]);
-%         [noise_pro(num,noise_t), ~] = my_qcspectra(EEGOUT.data,3,250,13);
-%     end
-%     for debrain_t = 1:5
-%         EEGOUT = pop_loadset(['debrain' num2str(debrain_t) '.set'],['E:\BCI\my_workplace\icoh\ft_test0\data200\data' num2str(num)]);
-%         [debrain_pro(num,debrain_t), ~] = my_qcspectra(EEGOUT.data,3,250,13);
-%     end
-%     
-% end
-% %----PaLos
-% ft_data_result(clean_pro,noise_pro,debrain_pro,'changes of PaLos in different denoising level','PaLos','E:\BCI\my_workplace\icoh\ft_test0','PaLos');
+for num = 1:dataset
+    load(['E:\BCI\my_workplace\icoh\ft_test0\data200\data' num2str(num) '\samp.mat']);
+    [clean_pro(num), ~] = my_qcspectra(samp,3,250,13);
+    for noise_t = 1:41
+        EEGOUT = pop_loadset(['noise' num2str(noise_t) '.set'],['E:\BCI\my_workplace\icoh\ft_test0\data200\data' num2str(num)]);
+        [noise_pro(num,noise_t), ~] = my_qcspectra(EEGOUT.data,3,250,13);
+    end
+    for debrain_t = 1:5
+        EEGOUT = pop_loadset(['debrain' num2str(debrain_t) '.set'],['E:\BCI\my_workplace\icoh\ft_test0\data200\data' num2str(num)]);
+        [debrain_pro(num,debrain_t), ~] = my_qcspectra(EEGOUT.data,3,250,13);
+    end
+    
+end
+%----PaLos
+ft_data_result(clean_pro,noise_pro,debrain_pro,'changes of PaLos in different denoising level','PaLos','E:\BCI\my_workplace\icoh\ft_test0','PaLos');
 
 method = {'coh','dtf','granger','pdc','plv','psi'}; 
-method = {'granger','pdc','plv','psi'};
 for method_i = 1:length(method)
     for num = 1:dataset
         disp(['--------->dataset:' num2str(num) '<------------']);
